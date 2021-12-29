@@ -1,14 +1,22 @@
+import Toast from 'react-native-toast-message';
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { View, Text, TextInput } from '../components/Themed';
 
 export function Root() {
-  const availableWeight = '50 kg'; // <= in a real world environment this would be coming from an API or database
+  const availableWeightInKg: number = 50; // <= in a real world environment this would be coming from an API or database
   const [grapeQty, setGrapeQty] = useState('');
 
-  const onQtyBlur = () => {
-    // only allow numeric values
-    setGrapeQty(grapeQty.replace(/[^0-9]/g, ''));
+  const handleQtyChange = (qty: string) => {
+    const parsedQty: string = qty.replace(/[^0-9]/g, '');
+    if (parsedQty !== qty) {
+      Toast.show({
+        type: 'info',
+        text1: 'Please only use numbers for quantity',
+      });
+    } else {
+      setGrapeQty(qty);
+    }
   };
 
   return (
@@ -17,7 +25,7 @@ export function Root() {
         Buy Grapes
       </Text>
       <Text style={styles.weightText}>
-        <b>Available weight:</b> {availableWeight}
+        <b>Available weight:</b> {availableWeightInKg} kg
       </Text>
       <Text style={styles.grapIcon}>
         🍇
@@ -25,8 +33,7 @@ export function Root() {
       <View style={styles.quantityInputContainer}>
         <TextInput
           style={styles.quantityInput}
-          onChangeText={text => setGrapeQty(text)}
-          onBlur={onQtyBlur}
+          onChangeText={handleQtyChange}
           value={grapeQty}
           placeholder="number"
           keyboardType="numeric"
