@@ -1,26 +1,26 @@
 import Toast from 'react-native-toast-message';
 import { useState } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+
+import { ScreenWrapper } from '../components/ScreenWrapper';
+import { RootStackScreenProps } from '../types';
 import { View, Text, TextInput, PressableButton } from '../components/Themed';
 
-export function Root() {
+export function RootScreen({ navigation }: RootStackScreenProps<'Root'>) {
   const availableWeightInKg: number = 50; // <= in a real world environment this would be coming from an API or database
   const [grapeQty, setGrapeQty] = useState('');
 
   const handleQtyChange = (qty: string) => {
     const parsedQty: string = qty.replace(/[^0-9]/g, '');
     if (parsedQty !== qty) {
-      Toast.show({
-        type: 'info',
-        text1: 'Please only use numbers for quantity',
-      });
+      Toast.show({ type: 'info', text1: 'Please only use numbers for quantity' });
     } else {
       setGrapeQty(qty);
     }
   };
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper>
       <Text style={styles.titleText}>
         Buy Grapes
       </Text>
@@ -43,20 +43,17 @@ export function Root() {
         </Text>
       </View>
       <View style={styles.pageRowContainer}>
-        <PressableButton title='Proceeed to checkout' />
+        <PressableButton
+          title='Proceeed to checkout'
+          onPress={() => navigation.navigate('Checkout')}
+        />
       </View>
-    </View>
+    </ ScreenWrapper>
   );
 }
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    paddingTop: 12,
-    fontFamily: 'sans-serif-light',
-  },
   titleText: {
     fontSize: 50,
     paddingBottom: 20,
