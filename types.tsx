@@ -14,7 +14,9 @@ export type RootStackParamList = {
   Root: undefined;
   Modal: undefined;
   NotFound: undefined;
-  Checkout: undefined;
+  Checkout: {
+    grapeQty: string
+  };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

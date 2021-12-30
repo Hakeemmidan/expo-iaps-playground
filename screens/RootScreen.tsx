@@ -19,6 +19,14 @@ export function RootScreen({ navigation }: RootStackScreenProps<'Root'>) {
     }
   };
 
+  const handleCheckoutClick = () => {
+    if (grapeQty === '') {
+      Toast.show({ type: 'info', text1: 'Quantity missing', text2: 'Please enter a grape quantity to continue to checkout' });
+    } else {
+      navigation.navigate('Checkout', { grapeQty });
+    }
+  };
+
   return (
     <ScreenWrapper>
       <Text style={styles.titleText}>
@@ -45,7 +53,7 @@ export function RootScreen({ navigation }: RootStackScreenProps<'Root'>) {
       <View style={styles.pageRowContainer}>
         <PressableButton
           title='Proceeed to checkout'
-          onPress={() => navigation.navigate('Checkout')}
+          onPress={handleCheckoutClick}
         />
       </View>
     </ ScreenWrapper>
