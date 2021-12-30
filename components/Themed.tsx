@@ -3,7 +3,13 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
-import { Text as DefaultText, TextInput as DefaultTextInput, View as DefaultView } from 'react-native';
+import { ComponentProps } from 'react';
+import {
+  Text as DefaultText,
+  TextInput as DefaultTextInput,
+  View as DefaultView,
+  Pressable as DefaultPressable,
+} from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -30,6 +36,7 @@ type ThemeProps = {
 export type TextProps = ThemeProps & DefaultText['props'];
 export type TextInputProps = ThemeProps & DefaultTextInput['props'];
 export type ViewProps = ThemeProps & DefaultView['props'];
+export type PressableButtonProps = ThemeProps & ComponentProps<typeof DefaultPressable> & { title: string };
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -51,3 +58,33 @@ export function View(props: ViewProps) {
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
+
+export function PressableButton(props: PressableButtonProps) {
+  const { title, style, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'pressableButton');
+  const defaultPressableStyle: object = {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor,
+  };
+
+  const pressableTextStyle: object = {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+  } 
+
+  return (
+    <DefaultPressable style={[defaultPressableStyle, style]} {...otherProps}>
+      <Text style={pressableTextStyle}>
+        {title}
+      </Text>
+    </ DefaultPressable>
+  );
+};

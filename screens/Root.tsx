@@ -1,7 +1,7 @@
 import Toast from 'react-native-toast-message';
 import { useState } from 'react';
-import { StyleSheet } from 'react-native';
-import { View, Text, TextInput } from '../components/Themed';
+import { Pressable, StyleSheet } from 'react-native';
+import { View, Text, TextInput, PressableButton } from '../components/Themed';
 
 export function Root() {
   const availableWeightInKg: number = 50; // <= in a real world environment this would be coming from an API or database
@@ -30,7 +30,7 @@ export function Root() {
       <Text style={styles.grapIcon}>
         🍇
       </Text>
-      <View style={styles.quantityInputContainer}>
+      <View style={styles.pageRowContainer}>
         <TextInput
           style={styles.quantityInput}
           onChangeText={handleQtyChange}
@@ -41,6 +41,9 @@ export function Root() {
         <Text style={styles.kgTxt}>
           kg
         </Text>
+      </View>
+      <View style={styles.pageRowContainer}>
+        <PressableButton title='Proceeed to checkout' />
       </View>
     </View>
   );
@@ -77,7 +80,7 @@ const styles = StyleSheet.create({
   grapIcon: {
     fontSize: 100,
   },
-  quantityInputContainer: {
+  pageRowContainer: {
     flex: 0.1,
     flexDirection: 'row',
     alignItems: 'center',
@@ -85,5 +88,5 @@ const styles = StyleSheet.create({
   },
   kgTxt: {
     fontSize: 20,
-  }
+  },
 });
