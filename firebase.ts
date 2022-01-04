@@ -12,11 +12,14 @@ const firebaseConfig: object = {
 // initialize firebase
 firebase.initializeApp(firebaseConfig);
 
+// auth object
 export const auth = firebase.auth();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
-
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+// -- Helpers START --- //
+// Google OAuth
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+googleAuthProvider.setCustomParameters({ prompt: 'select_account' });
+export const signInWithGoogle = () => auth.signInWithPopup(googleAuthProvider);
+// -- Helpers END --- //
 
 export default firebase;
