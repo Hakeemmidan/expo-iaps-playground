@@ -6,7 +6,7 @@ import { ScreenWrapper } from '../components/ScreenWrapper';
 import { PressableButton } from '../components/Themed';
 import { CheckoutForm } from '../components/CheckoutForm';
 import { RootStackScreenProps } from '../types';
-import { signInWithGoogle } from '../firebase';
+import { signInWithGoogle } from '../helpers/firebase_auth';
 
 export function CheckoutScreen({ navigation, route }: RootStackScreenProps<'Checkout'>) {
   const { state: { currentUser } } = useContext(AppContext);

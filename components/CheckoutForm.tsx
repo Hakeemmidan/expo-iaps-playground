@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { PressableButton, Text, TextInput, View } from '../components/Themed';
-import { formatCardNumber, formatCardExpirationDate } from '../helpers/main';
+import { formatCardNumber, formatCardExpirationDate } from '../helpers/general';
 
 
 export function CheckoutForm() {

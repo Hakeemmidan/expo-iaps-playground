@@ -9,7 +9,7 @@ import React, { useEffect, useContext } from 'react';
 import { Button, ColorSchemeName, StyleSheet } from 'react-native';
 
 import { AppContext, CurrentUser } from '../contexts/AppContext';
-import firebase, { auth, signInWithGoogle } from '../firebase';
+import firebase, { auth, signInWithGoogle } from '../helpers/firebase_auth';
 import { RootScreen } from '../screens/RootScreen';
 import { CheckoutScreen } from '../screens/CheckoutScreen';
 import { NotFoundScreen } from '../screens/NotFoundScreen';
