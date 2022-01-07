@@ -10,7 +10,6 @@ import { signInWithGoogle } from '../firebase';
 
 export function CheckoutScreen({ navigation, route }: RootStackScreenProps<'Checkout'>) {
   const { state: { currentUser } } = useContext(AppContext);
-  console.log(currentUser)
 
   return (
     <ScreenWrapper>
@@ -19,7 +18,7 @@ export function CheckoutScreen({ navigation, route }: RootStackScreenProps<'Chec
       </h2>
       <br/>
       {currentUser.displayName
-        ? <CheckoutForm/>
+        ? <CheckoutForm />
         : <PressableButton
             title='Sign in with Google to Checkoout'
             onPress={signInWithGoogle}
