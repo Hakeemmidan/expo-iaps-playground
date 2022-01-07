@@ -1,20 +1,30 @@
+import { useContext } from 'react';
 import { StyleSheet } from 'react-native';
 
+import { AppContext } from '../contexts/AppContext';
 import { ScreenWrapper } from '../components/ScreenWrapper';
-import { PressableButton, Text } from '../components/Themed';
+import { PressableButton } from '../components/Themed';
+import { CheckoutForm } from '../components/CheckoutForm';
 import { RootStackScreenProps } from '../types';
 import { signInWithGoogle } from '../firebase';
 
 export function CheckoutScreen({ navigation, route }: RootStackScreenProps<'Checkout'>) {
+  const { state: { currentUser } } = useContext(AppContext);
+  console.log(currentUser)
+
   return (
     <ScreenWrapper>
-      <Text>
-        Hello world! You want to checkout {route.params.grapeQty} kg of grapes 😋
-      </Text>
-      <PressableButton
-        title='Sign in with Google'
-        onPress={signInWithGoogle}
-      />
+      <h2>
+        Checkout {route.params.grapeQty} kg of grapes 😋
+      </h2>
+      <br/>
+      {currentUser.displayName
+        ? <CheckoutForm/>
+        : <PressableButton
+            title='Sign in with Google to Checkoout'
+            onPress={signInWithGoogle}
+          />
+      }
     </ScreenWrapper>
   );
 }
