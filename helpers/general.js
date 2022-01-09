@@ -34,3 +34,7 @@ export function formatCardExpirationDate(value) {
       '$1/$2' // To handle 113 > 11/3
     );
 }
+
+export function formaCardtCvv(value) {
+  return value.replace(/[^0-9]/g, '');
+}

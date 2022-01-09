@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { PressableButton, Text, TextInput, View } from '../components/Themed';
-import { formatCardNumber, formatCardExpirationDate } from '../helpers/general';
+import { formatCardNumber, formatCardExpirationDate, formaCardtCvv } from '../helpers/general';
 
 
 export function CheckoutForm() {
@@ -18,6 +18,11 @@ export function CheckoutForm() {
   const handleCardExpChange = (text: string) => {
     const formattedTxt = formatCardExpirationDate(text);
     setCardExp(formattedTxt);
+  };
+
+  const handleCardCvvChange = (text: string) => {
+    const formattedTxt = formaCardtCvv(text);
+    setCardCvv(formattedTxt);
   };
 
   return (
@@ -59,7 +64,7 @@ export function CheckoutForm() {
       <TextInput
         style={styles.input}
         placeholder={'0000'}
-        onChangeText={setCardCvv}
+        onChangeText={handleCardCvvChange}
         value={cardCvv}
         maxLength={4}
         keyboardType="numeric"
