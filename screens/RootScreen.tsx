@@ -1,31 +1,16 @@
-import Toast from 'react-native-toast-message';
-import { useState } from 'react';
+import { useContext } from 'react';
 import { StyleSheet } from 'react-native';
+import { openBrowserAsync } from 'expo-web-browser';
 
+import { AppContext } from '../contexts/AppContext';
 import { ScreenWrapper } from '../components/ScreenWrapper';
+import { SignInWithGoogle } from '../components/SignInWithGoogle';
 import { RootStackScreenProps } from '../types';
-import { View, Text, TextInput, PressableButton } from '../components/Themed';
+import { View, Text, PressableButton } from '../components/Themed';
 
 export function RootScreen({ navigation }: RootStackScreenProps<'Root'>) {
+  const { state: { currentUser } } = useContext(AppContext);
   const availableWeightInKg: number = 50; // <= in a real world environment this would be coming from an API or database
-  const [grapeQty, setGrapeQty] = useState('');
-
-  const handleQtyChange = (qty: string) => {
-    const parsedQty: string = qty.replace(/[^0-9]/g, '');
-    if (parsedQty !== qty) {
-      Toast.show({ type: 'info', text1: 'Please only use numbers for quantity' });
-    } else {
-      setGrapeQty(qty);
-    }
-  };
-
-  const handleCheckoutClick = () => {
-    if (grapeQty === '') {
-      Toast.show({ type: 'info', text1: 'Quantity missing', text2: 'Please enter a grape quantity to continue to checkout' });
-    } else {
-      navigation.navigate('Checkout', { grapeQty });
-    }
-  };
 
   return (
     <ScreenWrapper>
@@ -39,22 +24,15 @@ export function RootScreen({ navigation }: RootStackScreenProps<'Root'>) {
         🍇
       </Text>
       <View style={styles.pageRowContainer}>
-        <TextInput
-          style={styles.quantityInput}
-          onChangeText={handleQtyChange}
-          value={grapeQty}
-          placeholder="number"
-          keyboardType="numeric"
-        />
-        <Text style={styles.kgTxt}>
-          kg
-        </Text>
+        {currentUser.displayName
+          ? <PressableButton
+            title='Checkout'
+            onPress={() => openBrowserAsync('https://buy.stripe.com/test_4gwdRb0uq0YCa6kfYY')}
+          />
+          : <SignInWithGoogle/>
+        }
       </View>
       <View style={styles.pageRowContainer}>
-        <PressableButton
-          title='Proceeed to checkout'
-          onPress={handleCheckoutClick}
-        />
       </View>
     </ ScreenWrapper>
   );

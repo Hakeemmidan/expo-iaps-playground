@@ -12,7 +12,6 @@ import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { AppContext, CurrentUser } from '../contexts/AppContext';
 import { firebaseApp } from '../helpers/firebase';
 import { RootScreen } from '../screens/RootScreen';
-import { CheckoutScreen } from '../screens/CheckoutScreen';
 import { NotFoundScreen } from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -73,7 +72,6 @@ function RootNavigator() {
       initialRouteName="Root"
     >
       <Stack.Screen name="Root" component={RootScreen} />
-      <Stack.Screen name="Checkout" component={CheckoutScreen} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
