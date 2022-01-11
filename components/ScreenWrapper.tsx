@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 export function ScreenWrapper(props: { children: React.ReactNode }) {
   return (
     <View style={styles.mainContainer}>
-      {[props.children]} 
+      {props.children} 
     </View>
   );
 };
