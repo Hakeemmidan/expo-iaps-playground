@@ -1,32 +1,33 @@
 import { useContext } from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 import { AppContext } from '../contexts/AppContext';
 import { ScreenWrapper } from '../components/ScreenWrapper';
-import { PressableButton } from '../components/Themed';
+import { Text } from '../components/Themed';
 import { CheckoutForm } from '../components/CheckoutForm';
 import { RootStackScreenProps } from '../types';
-import { signInWithGoogle } from '../helpers/firebase_auth';
+import { SignInWithGoogle } from '../components/SignInWithGoogle';
 
 export function CheckoutScreen({ navigation, route }: RootStackScreenProps<'Checkout'>) {
   const { state: { currentUser } } = useContext(AppContext);
 
   return (
     <ScreenWrapper>
-      <h2>
+      <Text style={styles.header}>
         Checkout {route.params.grapeQty} kg of grapes 😋
-      </h2>
-      <br/>
+        {"\n"}
+        {"\n"}
+      </Text>
       {currentUser.displayName
         ? <CheckoutForm />
-        : <PressableButton
-            title='Sign in with Google to Checkoout'
-            onPress={signInWithGoogle}
-          />
+        : <SignInWithGoogle/>
       }
     </ScreenWrapper>
   );
 }
 
 const styles = StyleSheet.create({
+  header: {
+    fontSize: 30,
+  }
 });

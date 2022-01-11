@@ -33,7 +33,7 @@ export function RootScreen({ navigation }: RootStackScreenProps<'Root'>) {
         Buy Grapes
       </Text>
       <Text style={styles.weightText}>
-        <b>Available weight:</b> {availableWeightInKg} kg
+        Available weight: {availableWeightInKg} kg
       </Text>
       <Text style={styles.grapIcon}>
         🍇
