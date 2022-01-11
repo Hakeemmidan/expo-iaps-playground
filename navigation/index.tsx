@@ -7,15 +7,17 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect, useContext } from 'react';
 import { Button, ColorSchemeName, StyleSheet } from 'react-native';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 
 import { AppContext, CurrentUser } from '../contexts/AppContext';
-import firebase, { auth, signInWithGoogle } from '../helpers/firebase_auth';
+import { firebaseApp } from '../helpers/firebase';
 import { RootScreen } from '../screens/RootScreen';
 import { CheckoutScreen } from '../screens/CheckoutScreen';
 import { NotFoundScreen } from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
-import { PressableButton, Text, View } from '../components/Themed';
+import { Text, View } from '../components/Themed';
+import { SignInWithGoogle } from '../components/SignInWithGoogle';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -36,9 +38,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   const appCtx = useContext(AppContext);
+  const auth = getAuth(firebaseApp);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((authUser: any) => {
+    onAuthStateChanged(auth, (authUser: any) => {
       if (authUser) {
         const { uid, displayName, email }: CurrentUser = authUser;
         const shapedUser: CurrentUser = { uid, displayName, email };
@@ -53,15 +56,13 @@ function RootNavigator() {
   const HeaderRight = () => {
     return (
       <View style={styles.headerRight}>
-        {appCtx.state.currentUser.displayName ?
-        <View style={styles.greetingContainer}>
-          <Text style={styles.displayName}>{appCtx.state.currentUser.displayName}</Text>
-          <Button title='Sign out' onPress={() => auth.signOut()} />
-        </View>
-        : <PressableButton
-          title='Sign in with Google'
-          onPress={signInWithGoogle}
-        />}
+        {appCtx.state.currentUser.displayName
+          ? <View style={styles.greetingContainer}>
+            <Text style={styles.displayName}>{appCtx.state.currentUser.displayName}</Text>
+            <Button title='Sign out' onPress={() => signOut(auth)} />
+          </View>
+          : <SignInWithGoogle />
+        }
       </View>
     );
   };
