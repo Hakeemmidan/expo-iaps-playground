@@ -36,7 +36,7 @@ type ThemeProps = {
 export type TextProps = ThemeProps & DefaultText['props'];
 export type TextInputProps = ThemeProps & DefaultTextInput['props'];
 export type ViewProps = ThemeProps & DefaultView['props'];
-export type PressableButtonProps = ThemeProps & ComponentProps<typeof DefaultPressable> & { title: string };
+export type PressableButtonProps = ThemeProps & ComponentProps<typeof DefaultPressable> & { title: string, secondary?: boolean };
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -60,8 +60,9 @@ export function View(props: ViewProps) {
 }
 
 export function PressableButton(props: PressableButtonProps) {
-  const { title, style, lightColor, darkColor, ...otherProps } = props;
+  const { title, style, secondary, lightColor, darkColor, ...otherProps } = props;
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'pressableButton');
+  let secondaryBackgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'pressableButtonSecondary');
   const defaultPressableStyle: object = {
     alignItems: 'center',
     justifyContent: 'center',
@@ -69,7 +70,7 @@ export function PressableButton(props: PressableButtonProps) {
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor,
+    backgroundColor: secondary ? secondaryBackgroundColor : backgroundColor,
   };
 
   const pressableTextStyle: object = {

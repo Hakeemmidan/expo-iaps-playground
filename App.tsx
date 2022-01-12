@@ -1,4 +1,3 @@
-import Toast from 'react-native-toast-message';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as WebBrowser from 'expo-web-browser';
@@ -22,7 +21,6 @@ export default function App() {
         <AppContextProvider>
           <Navigation colorScheme={colorScheme} />
           <StatusBar />
-          <Toast />
         </AppContextProvider>
       </SafeAreaProvider>
     );

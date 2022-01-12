@@ -1,7 +1,9 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { openBrowserAsync } from 'expo-web-browser';
+import { doc, onSnapshot } from "firebase/firestore";
 
+import { firestore } from '../helpers/firebase';
 import { AppContext } from '../contexts/AppContext';
 import { ScreenWrapper } from '../components/ScreenWrapper';
 import { SignInWithGoogle } from '../components/SignInWithGoogle';
@@ -10,7 +12,22 @@ import { View, Text, PressableButton } from '../components/Themed';
 
 export function RootScreen({ navigation }: RootStackScreenProps<'Root'>) {
   const { state: { currentUser } } = useContext(AppContext);
-  const availableWeightInKg: number = 50; // <= in a real world environment this would be coming from an API or database
+  const [availableWeightInLbs, setAvailableWeightInLbs] = useState('🔄');
+  const [deliveryDelayWarning, setDeliveryDelayWarning] = useState(''); // Used in case of negative available weight
+
+  useEffect(() => {
+    onSnapshot(doc(firestore, "grapes", "data_main"), (doc) => {
+        const quantity_available_in_lbs = doc.data()?.quantity_available_in_lbs;
+        if (quantity_available_in_lbs) {
+          setAvailableWeightInLbs(String(quantity_available_in_lbs));
+          if (quantity_available_in_lbs < 0) {
+            setDeliveryDelayWarning('You can still order, but there will be a slight delay in delivery (1-2 extra business days) since the available quantity is negative.');
+          }
+        } else {
+          setAvailableWeightInLbs('Database fetch error. You can still order but you will not be able to see the available weight.');
+        }
+    });
+  }, []);
 
   return (
     <ScreenWrapper>
@@ -18,7 +35,10 @@ export function RootScreen({ navigation }: RootStackScreenProps<'Root'>) {
         Buy Grapes
       </Text>
       <Text style={styles.weightText}>
-        Available weight: {availableWeightInKg} kg
+        <Text style={styles.boldText}>Available weight:</Text> {availableWeightInLbs} lbs
+      </Text>
+      <Text>
+        {deliveryDelayWarning}
       </Text>
       <Text style={styles.grapIcon}>
         🍇
@@ -43,6 +63,9 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 50,
     paddingBottom: 20,
+    fontWeight: "bold",
+  },
+  boldText: {
     fontWeight: "bold",
   },
   weightText: {
