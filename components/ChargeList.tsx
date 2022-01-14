@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 
 import { firestore } from '../helpers/firebase';
 import { View, Text } from './Themed';
@@ -17,23 +17,24 @@ export function ChargeList(props: ChargeListProps) {
   const { currentUser } = props;
 
   useEffect(() => {
-    const fetchCharges = async () => {
-      try {
-        const chargesSnapshot = await getDocs(collection(firestore, 'stripe', currentUser.email, 'charges'));
-        let formattedCharges: ChargeListItem[] = [];
-  
+    try {
+      const chargesCollection = collection(firestore, 'stripe', currentUser.email, 'charges');
+      let formattedCharges: ChargeListItem[] = [];
+
+      onSnapshot((chargesCollection), (chargesSnapshot) => {
+        formattedCharges = [];
+
         chargesSnapshot.forEach((doc) => {
           const chargeListItem = doc.data() as ChargeListItem;
           formattedCharges.push(chargeListItem);
         });
+
         setChargeList(formattedCharges);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    
-    fetchCharges();
-  }, []);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }, [chargesList]);
 
   return (
     <View>
