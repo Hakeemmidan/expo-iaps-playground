@@ -24,4 +24,17 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
   Screen
 >;
 
+enum chargeListItemStatusEnum { 
+  succeeded = "succeeded",
+  pending = "pending",
+  failed = "failed"
+}
 
+export type ChargeListItem = {
+  stripe_charge_id: string,
+  amount: string,
+  currency: string,
+  created_formatted: string,
+  receipt_url: string,
+  status: chargeListItemStatusEnum,
+}

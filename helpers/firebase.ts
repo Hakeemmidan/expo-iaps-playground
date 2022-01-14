@@ -10,6 +10,6 @@ const firebaseConfig: object = {
   storageBucket: 'buy-grapes-expo-demo.appspot.com',
 };
 
-// initialize firebase
+// initialize firebase and firestore
 export const firebaseApp = initializeApp(firebaseConfig);
 export const firestore = getFirestore();
