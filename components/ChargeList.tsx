@@ -34,7 +34,7 @@ export function ChargeList(props: ChargeListProps) {
     } catch (e) {
       console.error(e);
     }
-  }, [chargesList]);
+  }, []);
 
   return (
     <View>
