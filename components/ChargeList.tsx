@@ -14,6 +14,7 @@ interface ChargeListProps {
 
 export function ChargeList(props: ChargeListProps) {
   const [chargesList, setChargeList] = useState<ChargeListItem[]>([]);
+  const [totalCharged, setTotalCharged] = useState<number|string>('🔄');
   const { currentUser } = props;
 
   useEffect(() => {
@@ -23,12 +24,15 @@ export function ChargeList(props: ChargeListProps) {
 
       onSnapshot((chargesCollection), (chargesSnapshot) => {
         formattedCharges = [];
+        let newTotalCharged: number = 0;
 
         chargesSnapshot.forEach((doc) => {
           const chargeListItem = doc.data() as ChargeListItem;
+          if (chargeListItem.status === 'succeeded' || chargeListItem.status === 'pending') newTotalCharged += Number(chargeListItem.amount);
           formattedCharges.push(chargeListItem);
         });
 
+        setTotalCharged(newTotalCharged);
         setChargeList(formattedCharges);
       });
     } catch (e) {
@@ -40,7 +44,8 @@ export function ChargeList(props: ChargeListProps) {
     <View>
       <View style={chargeListStyles.headerContainer}>
         <Text style={chargeListStyles.header}>Your previous charges:</Text>
-        <Text>(Click on card to view reciept)</Text>
+        <Text style={chargeListStyles.uMarginTop3}>Total: ${totalCharged} (USD)</Text>
+        <Text style={chargeListStyles.uMarginTop3}>(Click on card to view reciept)</Text>
       </View>
       <View>
         {chargesList.map((chargeListItem) => (
@@ -63,6 +68,7 @@ function ChargeListItemPressable({ chargeListItem }: { chargeListItem: ChargeLis
     statusTxt = '🔄 Pending';
   } else if (status === 'failed') {
     statusTxt = '❌ Failed';
+    amountTxt = `$${amount}`;
     infoTxt = 'ⓘ You did not get charged, or a refund is on the way. You can try to re-order again.';
   } else {
     amountTxt = '---';
@@ -96,6 +102,9 @@ const chargeListStyles = StyleSheet.create({
   header: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  uMarginTop3: {
+    marginTop: 3,
   },
 });
 
