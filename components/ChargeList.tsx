@@ -90,7 +90,7 @@ function ChargeListItemPressable({ chargeListItem }: { chargeListItem: ChargeLis
 
 const chargeListStyles = StyleSheet.create({
   headerContainer: {
-    marginTop: 15,
+    marginTop: 25,
     marginBottom: 10,
   },
   header: {
