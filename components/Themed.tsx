@@ -78,7 +78,7 @@ export function PressableButton(props: PressableButtonProps) {
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: 'white',
+    color: '#ffffff',
   } 
 
   return (

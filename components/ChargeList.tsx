@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { ScrollView, Pressable, StyleSheet } from 'react-native';
 import { collection, onSnapshot } from "firebase/firestore";
 
 import { firestore } from '../helpers/firebase';
@@ -41,17 +41,17 @@ export function ChargeList(props: ChargeListProps) {
   }, []);
 
   return (
-    <View>
+    <View style={chargeListStyles.container}>
       <View style={chargeListStyles.headerContainer}>
         <Text style={chargeListStyles.header}>Your previous charges:</Text>
         <Text style={chargeListStyles.uMarginTop3}>Total: ${totalCharged} (USD)</Text>
         <Text style={chargeListStyles.uMarginTop3}>(Click on card to view reciept)</Text>
       </View>
-      <View>
+      <ScrollView  style={chargeListStyles.scrollView}>
         {chargesList.map((chargeListItem) => (
           <ChargeListItemPressable key={chargeListItem.stripe_charge_id} chargeListItem={chargeListItem} />
         ))}
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -95,6 +95,9 @@ function ChargeListItemPressable({ chargeListItem }: { chargeListItem: ChargeLis
 }
 
 const chargeListStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   headerContainer: {
     marginTop: 25,
     marginBottom: 10,
@@ -103,6 +106,10 @@ const chargeListStyles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  scrollView: {
+    flexGrow: 1,
+    height: 300,
+  },
   uMarginTop3: {
     marginTop: 3,
   },
@@ -110,24 +117,32 @@ const chargeListStyles = StyleSheet.create({
 
 const chargeListItemStyles = StyleSheet.create({
   container: {
-    width: 500,
+    maxWidth: 500,
+    minWidth: 300,
     borderRadius: 13,
     marginBottom: 30,
     padding: 12,
-    backgroundColor: 'whitesmoke',
-    boxShadow: "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
+    backgroundColor: '#f5f5f5',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
   },
   mainView: {
-    backgroundColor: 'inherit',
+    backgroundColor: '#f5f5f5',
   },
   secondRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'inherit',
+    backgroundColor: '#f5f5f5',
   },
   thirdRow: {
     marginTop: 3,
-    backgroundColor: 'inherit',
+    backgroundColor: '#f5f5f5',
   },
   secondaryInfo: {
     fontSize: 12,
