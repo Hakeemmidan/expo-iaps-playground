@@ -1,19 +1,6 @@
 import React from 'react';
 import { useState, createContext } from 'react';
-
-type AppContextProviderProps = {
-  children: React.ReactNode;
-};
-
-type AppContextState = {
-  currentUser: CurrentUser,
-};
-
-export type CurrentUser = {
-  uid: string,
-  displayName: string,
-  email: string,
-}
+import { AppContextProviderProps, AppContextState } from '../types';
 
 const defaultState = {
   state: {

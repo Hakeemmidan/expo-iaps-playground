@@ -19,10 +19,28 @@ export type RootStackParamList = {
   };
 };
 
+export type AppContextProviderProps = {
+  children: React.ReactNode;
+};
+
+export type AppContextState = {
+  currentUser: CurrentUser,
+};
+
+export type CurrentUser = {
+  uid: string,
+  displayName: string,
+  email: string,
+}
+
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
   RootStackParamList,
   Screen
 >;
+
+export interface ChargeListProps {
+  currentUser: CurrentUser
+}
 
 enum chargeListItemStatusEnum { 
   succeeded = "succeeded",

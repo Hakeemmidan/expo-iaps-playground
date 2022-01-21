@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
 import { ScrollView, Pressable, StyleSheet } from 'react-native';
 import { collection, onSnapshot } from "firebase/firestore";
+import { openBrowserAsync } from 'expo-web-browser';
 
 import { firestore } from '../helpers/firebase';
 import { View, Text } from './Themed';
 import { ChargeListItem } from '../types';
-import { CurrentUser } from '../contexts/AppContext';
-import { openBrowserAsync } from 'expo-web-browser';
+import { ChargeListProps } from '../types';
 
-interface ChargeListProps {
-  currentUser: CurrentUser
-}
 
 export function ChargeList(props: ChargeListProps) {
   const [chargesList, setChargeList] = useState<ChargeListItem[]>([]);
