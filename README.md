@@ -5,7 +5,7 @@ A simple web/iOS/Android app that lets users signup, buy grapes, and view their 
 1. `yarn install`
 2. `yarn start`
 
-There are no tests/specs for now. This project was made just to understand/analyze the Expo in-app purchases workflow/experience.
+There are no tests for now. This project was made just to analyze and understand the Expo the in-app purchases workflow and experience.
 
 ## Tools used (and the use behind each):
 - Expo
