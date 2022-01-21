@@ -1,6 +1,12 @@
 # Buy Grapes
 A simple web/iOS/Android app that lets users signup, buy grapes, and view their pevious transactions.
 
+## Setup
+1. `yarn install`
+2. `yarn start`
+
+There are no tests/specs for now. This project was made just to understand/analyze the Expo in-app purchases workflow/experience.
+
 ## Tools used (and the use behind each):
 - Expo
   - For making a web/iOS/Android compatable app using React Native.
@@ -11,7 +17,6 @@ A simple web/iOS/Android app that lets users signup, buy grapes, and view their 
 - Stripe
   - For payment processing.
   - A [Stripe Payments page](https://stripe.com/docs/connect/creating-a-payments-page) was used to not deal with creating a server, or with creating Firebase cloud functions (which require an account upgrade).
-
 
 ## Screenshot
 <img width="800px" src="assets/images/app_screenshot.png" />
