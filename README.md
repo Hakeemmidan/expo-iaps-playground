@@ -11,7 +11,7 @@ There are no tests for now. This project was made just to analyze and understand
 1. Login with Google.
 2. Click on 'Checkout'.
 3. Fill out the checkout page.
-   1. Enter the email that you signed up with. (That way your transaction would get mapped to your account.)
+   1. Enter the email that you signed up with. (That way the transaction would get mapped to your account.)
    2. Enter one of the following test card numbers, depending on the case you want to see:
       - Success
         - 4242424242424242
@@ -19,7 +19,7 @@ There are no tests for now. This project was made just to analyze and understand
         - 4000000000003220
       - Decline
         - 4000000000000002
-4. You should now see the transaction showing in the UI (after you close the checkout page).
+4. You should now see the transaction showing in the UI after you close the checkout page.
 
 ## Tools used (and the use behind each):
 - Expo
