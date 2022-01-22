@@ -65,7 +65,7 @@ function ChargeListItemPressable({ chargeListItem }: { chargeListItem: ChargeLis
     statusTxt = '🔄 Pending';
   } else if (status === 'failed') {
     statusTxt = '❌ Failed';
-    amountTxt = `$${amount}`;
+    amountTxt = `$0.00`;
     infoTxt = 'ⓘ You did not get charged, or a refund is on the way. You can try to re-order again.';
   } else {
     amountTxt = '---';
