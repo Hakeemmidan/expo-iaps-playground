@@ -9,11 +9,11 @@ import React, { useEffect, useContext } from 'react';
 import { Button, ColorSchemeName, StyleSheet } from 'react-native';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 
-import { AppContext, CurrentUser } from '../contexts/AppContext';
+import { AppContext } from '../contexts/AppContext';
 import { firebaseApp } from '../helpers/firebase';
 import { RootScreen } from '../screens/RootScreen';
 import { NotFoundScreen } from '../screens/NotFoundScreen';
-import { RootStackParamList } from '../types';
+import { RootStackParamList, CurrentUser } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import { Text, View } from '../components/Themed';
 import { SignInWithGoogle } from '../components/SignInWithGoogle';
